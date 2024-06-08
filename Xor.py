@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 %matplotlib inline
 
 X = np.array([ [0,1], [1,0], [1,1], [0,0] ])
-y = p.array([ [1], [1], [0], [0] ])
+y = np.array([ [1], [1], [0], [0] ])
 
 num_input = 2
 num_hidden = 5
@@ -12,11 +12,14 @@ num_output = 1
 Wxh = np.random.randn(num_input,num_hidden)
 bh = np.zeros((1,num_output))
 
+Why = np.random.randn (num_hidden,num_output)
+by = np.zeros((1,num_output))
+
 def sigmoid(z):
 	return 1 / (1+np.exp(-z))
 
-def sigmoid_derivatice(z):
-	return np.exp(-z)/((1+np.exp(-z))**2
+def sigmoid_derivative(z):
+	return np.exp(-z)/((1+np.exp(-z))**2)
 
 def forward_prop(X,Wxh,Why):
 	z1 = np.dot(X,Wxh) + bh
@@ -27,7 +30,7 @@ def forward_prop(X,Wxh,Why):
 
 def backward_prop(y_hat, z1, a1, z2):
 	delta2 = np.multiply(-(y-y_hat),sigmoid_derivative(z2))
-	dJ_dWhy = np.dpt(a1.T, delta2)
+	dJ_dWhy = np.dot(a1.T, delta2)
 	delta1 = np.dot(delta2,Why.T)*sigmoid_derivative(z1)
 	dJ_dWxh = np.dot(X.T, delta1)
 	return dJ_dWxh, dJ_dWhy
